@@ -1,5 +1,4 @@
 # Weather-Dashboard
-Proposal
 We plan on using the Open Weather API data to create a weather dashboard. It will contain data for ~200 different cities and show both current weather information for all of them, as well as more detailed info for a city that is chosen from a dropdown. A breakdown of the planned visuals is laid out below.
 
 This could be useful to anyone curious about current weather around the world or anyone who is planning a trip to a specific location. The ability to dump the information into a database could be useful to anyone who needs to reference this information again offline at a later time. 
