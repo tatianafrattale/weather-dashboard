@@ -22,3 +22,6 @@ A line/bar graph linked to a drop-down of cities, that shows that city’s 2 wee
 A “metadata box” that includes selected city’s full info, including wind speed, cloud coverage, and humidity.
 Gauge, linked to same dropdown that shows chosen city’s current temperature. 
 “Slider feature” that allows us to filter map markers by humidity. 
+
+Libraries Used:
+D3, Leaflet, Plotly, Echarts, noUiSlider
