@@ -35,11 +35,31 @@ var myMap = L.map("map", {
 
       tofill = d3.select("#sample-metadata");
       tofill.html("");
-      console.log(cityinfo);
+    //  console.log(cityinfo);
 
+      let fields = ["temp", "temp_max", "temp_min", "humidity", "pressure"];
+      tofill.append("h5").text("City: " + chosen_city);
+      for (var i = 0; i < fields.length; i++){
+         // console.log(fields[i]);
+          tofill.append("h5").text(String(fields[i]) + ": " + String(cityinfo[0].main[fields[i]]));
 
-
+      }
 
   }
 
-  fillInInfoCard(data[0].name);
+
+  function init(){
+    var choice = d3.select("#selDataset");
+    // this line may need to change to keys depending on how flask app returns JSON
+    for (var i=0; i < data.length; i++ ){
+        choice.append("option").text(data[i].name);
+    }
+    fillInInfoCard(data[0].name);
+    // Call bar graph and gauge functions here too
+  }
+
+  function optionChanged(city){
+      fillInInfoCard(city);
+  }
+  
+  init();
