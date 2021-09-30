@@ -17,6 +17,11 @@
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
 
+   <!-- No UI Slider files -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.css" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.js"></script>
+    <!-- Echarts ??????????????????-->
+   
     <!-- Our CSS -->
   <link rel="stylesheet" type="text/css" href="project_style.css">
 </head>
@@ -46,9 +51,16 @@
       <div class="col-md-5">
         <div id="bar"></div>
       </div>
-      <!-- <div class="col-md-5">
-        <div id="gauge"></div>
-      </div> -->
+      <div class="col-md-5">
+        <div id="gauge" style="width: 80vw; height: 50vh;"></div>
+      </div>
+    </div>
+      <div class="row">
+    <div id="slider" style="top: 0px; right: 1px; margin: 10px 25px;"></div>
+      <div style="margin-right: auto; margin-left: auto; width: 90%; margin-bottom: 10px; text-align: center;">
+      <input type="number" min='0' max='99' id="input-number-min">
+      <input type="number" min='1' max='100' id="input-number-max">
+    </div>
     </div>
     <div class="row">
       <div class="col-md-12">
