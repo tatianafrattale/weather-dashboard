@@ -52,10 +52,11 @@ function createMap(data1){
     //  console.log(cityinfo);
 
       let fields = ["temp", "temp_max", "temp_min", "humidity", "pressure"];
+      let fields1 = ['Temperature', 'Max Temp', 'Min Temp', 'Humidity (%)', 'Pressure (hPa)'];
       tofill.append("h5").text("City: " + chosen_city);
       for (var i = 0; i < fields.length; i++){
          // console.log(fields[i]);
-          tofill.append("h5").text(String(fields[i]) + ": " + String(cityinfo[0].main[fields[i]]));
+          tofill.append("h5").text(String(fields1[i]) + ": " + String(cityinfo[0].main[fields[i]]));
 
       }
 
@@ -130,7 +131,6 @@ function createMap(data1){
         } else {
             document.getElementById('input-number-max').value =  values[1];
         }
-    //we will definitely do more here...wait
     rangeMin = document.getElementById('input-number-min').value;
     rangeMax = document.getElementById('input-number-max').value;
 
