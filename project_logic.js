@@ -1,37 +1,17 @@
 
 function createMap(data1){
-   
-    console.log("in create map");
-    //myMap.remove();
-    //if (myMap){
-        // console.log("in if");
-        myMap.eachLayer(function (layer) {
-            myMap.removeLayer(layer);
-        });
-  //  }
-// Create a map object.
-    // var myMap = L.map("map", {
-    // center: [37.09, -95.71],
-    // zoom: 5
-    // });
-  
+    myMap.eachLayer(function (layer) {
+        myMap.removeLayer(layer);
+    });
     // Add a tile layer.
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(myMap);
+    // console.log(data1);
 
-
-     console.log(data1);
-   // myMap.removeLayer(NORMAL);
-    // Add markers
     for (var i =0; i < data1.length; i++) {
          var city = data1[i];
         if (city.sys.country === "US"){
-    //   console.log(city.coord.lon);
-    //   console.log(city.coord.lat);
-         //   var loc = [];
-    //   loc.push(city.coord.lat);
-    //   loc.push(city.coord.lon);
 
     // Change for new script being in F
             var temp = (city.main.temp - 273.15) * (9/5) + 32;
@@ -42,22 +22,19 @@ function createMap(data1){
         .addTo(myMap);
       }
      }
-    }
+}
 
   function fillInInfoCard(chosen_city){
       let cityinfo = data.filter(c => c.name === chosen_city);
 
       tofill = d3.select("#sample-metadata");
       tofill.html("");
-    //  console.log(cityinfo);
-
+    // Fill in info panel
       let fields = ["temp", "temp_max", "temp_min", "humidity", "pressure"];
       let fields1 = ['Temperature', 'Max Temp', 'Min Temp', 'Humidity (%)', 'Pressure (hPa)'];
       tofill.append("h5").text("City: " + chosen_city);
       for (var i = 0; i < fields.length; i++){
-         // console.log(fields[i]);
           tofill.append("h5").text(String(fields1[i]) + ": " + String(cityinfo[0].main[fields[i]]));
-
       }
 
       // Update Gauge at same time
@@ -99,7 +76,6 @@ function createMap(data1){
 
     
 }
-
 
   // https://digital-geography.com/filter-leaflet-maps-slider/
   function sliderFill(){
@@ -143,30 +119,12 @@ function createMap(data1){
           }
         }
     }
-   // console.log(wanted);
-
    createMap(wanted);
     })
-    
-
   }
 
-  var layers = { NORMAL: new L.LayerGroup()};
-  // Create a map object.
-  myMap = L.map("map", {
-    center: [37.09, -95.71],
-    zoom: 5,
-    layers: [
-        layers.NORMAL
-    ]
-    });
-  
-
   function init(){
-
-
     var choice = d3.select("#selDataset");
-    // this line may need to change to keys depending on how flask app returns JSON
    
     // sort city names so they appear in drop down alphabetically
     sorted = [];
@@ -179,31 +137,19 @@ function createMap(data1){
     for (var i=0; i < sorted.length; i++){
         choice.append("option").text(sorted[i]);
 
-    }
-        
-        
+    }  
     fillInInfoCard(sorted[0]);
-    // Call bar graph and gauge functions here too
-
-    
-        // Add a tile layer.
+    // Call bar graph here too    
+    // Add a tile layer.
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(myMap);
-    
-    
-     // console.log(data1);
     
         // Add markers
         for (var i =0; i < data.length; i++) {
              var city = data[i];
             if (city.sys.country === "US"){
-        //   console.log(city.coord.lon);
-        //   console.log(city.coord.lat);
-                var loc = [];
-        //   loc.push(city.coord.lat);
-        //   loc.push(city.coord.lon);
-                var temp = (city.main.temp - 273.15) * (9/5) + 32;
+             var temp = (city.main.temp - 273.15) * (9/5) + 32;
              var newmark = L.marker(city.coord)
             .bindPopup(`<h3>${city.name}</h3> <h4>Temperature: ${temp.toLocaleString()} F</h4>
             <h4>Humidity: ${city.main.humidity.toLocaleString()} </h4> <h4>Wind Speed: ${city.wind.speed.toLocaleString()} </h4>
@@ -217,7 +163,21 @@ function createMap(data1){
 
   function optionChanged(city){
       fillInInfoCard(city);
-      //sliderFill();
+      // Bargraph(city);
   }
+
+
+  // Create a map object.
+  var layers = { NORMAL: new L.LayerGroup()};
+  myMap = L.map("map", {
+    center: [37.09, -95.71],
+    zoom: 5,
+    layers: [
+        layers.NORMAL
+    ]
+    });
+  
   // define data by reading from API JSON Flask route
+  // let data = d3.json(insert API JSON endpoint from flask here)
+  // let forecast_data = d3.json(other flask app endpoint)
   init();
