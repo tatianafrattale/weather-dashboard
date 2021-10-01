@@ -133,10 +133,7 @@ function createMap(data1){
     //we will definitely do more here...wait
     rangeMin = document.getElementById('input-number-min').value;
     rangeMax = document.getElementById('input-number-max').value;
-    //console.log(rangeMin);
-    //let cityinfo = data.filter(c => c.name === chosen_city);
-    // wantedmarkers = [data.filter(c => c.main.humidity >= rangeMin)];
-    // wanted = wantedmarkers.filter(c => c.main.humidity <= rangeMax);\
+
     wanted = [];
     for (var i =0; i < data.length; i++){
     //    console.log(data[i].main.humidity);
