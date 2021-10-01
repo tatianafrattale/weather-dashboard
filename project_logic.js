@@ -1,5 +1,6 @@
 
 function createMap(data1){
+   
     console.log("in create map");
     //myMap.remove();
     //if (myMap){
@@ -28,9 +29,11 @@ function createMap(data1){
         if (city.sys.country === "US"){
     //   console.log(city.coord.lon);
     //   console.log(city.coord.lat);
-            var loc = [];
+         //   var loc = [];
     //   loc.push(city.coord.lat);
     //   loc.push(city.coord.lon);
+
+    // Change for new script being in F
             var temp = (city.main.temp - 273.15) * (9/5) + 32;
          L.marker(city.coord)
         .bindPopup(`<h3>${city.name}</h3> <h4>Temperature: ${temp.toLocaleString()} F</h4>
@@ -55,10 +58,47 @@ function createMap(data1){
           tofill.append("h5").text(String(fields[i]) + ": " + String(cityinfo[0].main[fields[i]]));
 
       }
- 
 
+      // Update Gauge at same time
+      // https://plotly.com/javascript/gauge-charts/
+      //https://plotly.com/javascript/reference/indicator/
+      // Change color of gauge bar depending on temperature
+      if ( (cityinfo[0].main.temp - 273.15) * (9/5) + 32 < 0){
+          color1 = "#A020F0";
+      }
+      else if ( (cityinfo[0].main.temp - 273.15) * (9/5) + 32 < 32){
+        color1 = "#0000FF";
+      }
+      else if ( (cityinfo[0].main.temp - 273.15) * (9/5) + 32 < 75){
+        color1 = "#097969";
+      }
+      else if ( (cityinfo[0].main.temp - 273.15) * (9/5) + 32 < 105){
+        color1 = "#FF1493";
+      }
+      else if ( (cityinfo[0].main.temp - 273.15) * (9/5) + 32 < 150){
+        color1 = "#FFA500";
+      }
+      
+      var data2 = 
+        {
+            domain: { x: [-50, 130], y: [-50, 130] },
+            
+            value: (cityinfo[0].main.temp - 273.15) * (9/5) + 32,
+            title: { text: "Current Temperature in " + chosen_city + " (F)" ,
+                    font: {size: 27}},
+            gauge: {axis: {visible: true, range: [-50,130]}, 
+                bar: {color:color1}},
+            number: {font : {color: color1}},
+            type: "indicator",
+            mode: "gauge+number"
+        };
+    
+    var layout = { width: 600, height: 400, margin:  { t: 0, b: 0 } };
+    Plotly.newPlot('gauge', [data2], layout);
 
+    
 }
+
 
   // https://digital-geography.com/filter-leaflet-maps-slider/
   function sliderFill(){
@@ -126,12 +166,26 @@ function createMap(data1){
   
 
   function init(){
+
+
     var choice = d3.select("#selDataset");
     // this line may need to change to keys depending on how flask app returns JSON
+   
+    // sort city names so they appear in drop down alphabetically
+    sorted = [];
     for (var i=0; i < data.length; i++ ){
-        choice.append("option").text(data[i].name);
+        if (data[i].sys.country === "US"){
+        sorted.push(data[i].name)
+        }
     }
-    fillInInfoCard(data[0].name);
+    sorted.sort();
+    for (var i=0; i < sorted.length; i++){
+        choice.append("option").text(sorted[i]);
+
+    }
+        
+        
+    fillInInfoCard(sorted[0]);
     // Call bar graph and gauge functions here too
 
     
@@ -168,5 +222,5 @@ function createMap(data1){
       fillInInfoCard(city);
       //sliderFill();
   }
-  
+  // define data by reading from API JSON Flask route
   init();
