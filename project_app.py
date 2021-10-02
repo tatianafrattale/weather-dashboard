@@ -1,3 +1,6 @@
+# Imports
+import weather_data
+import seven_day_forecast
 import pymongo
 from flask_pymongo import PyMongo
 import os
@@ -20,3 +23,7 @@ app = Flask(__name__)
 ################################################
 
 mongo = PyMongo(app, uri="mongodb://localhost:27017/weather_dashboard")
+
+# API call
+current_data = weather_data.makecall()
+seven_day_data = seven_day_forecast.make7daycall()
