@@ -180,4 +180,5 @@ function createMap(data1){
   // define data by reading from API JSON Flask route
   // let data = d3.json(insert API JSON endpoint from flask here)
   // let forecast_data = d3.json(other flask app endpoint)
+  
   init();

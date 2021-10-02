@@ -1,6 +1,5 @@
 # Imports
-#import weather_data
-#import seven_day_forecast
+
 from counts import current_data1, seven_day_data1
 import pymongo
 from flask_pymongo import PyMongo

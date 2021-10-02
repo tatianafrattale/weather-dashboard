@@ -1,6 +1,9 @@
 import os
 import json
+#import weather_data
+#import seven_day_forecast
 
+# Eventually, we will not read from the local .json files, we will run the makecall() funcs
 def getdata():
     with open('weather_data.json', 'r') as outfile:
         current_data1 = json.load(outfile)
