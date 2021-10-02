@@ -39,7 +39,7 @@ def make7daycall():
 
 
 # Check weather data
-    print(weather_json)
+    #print(weather_json)
     return weather_json
 
 make7daycall()

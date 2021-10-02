@@ -40,7 +40,7 @@ def makecall():
 
 
 # Check weather data
-    print(weather_json)
+   # print(weather_json)
     return weather_json
 
 makecall()
