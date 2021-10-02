@@ -1,7 +1,7 @@
 # Imports
 #import weather_data
 #import seven_day_forecast
-from counts import count1, count2, current_data1, seven_day_data1
+from counts import current_data1, seven_day_data1
 import pymongo
 from flask_pymongo import PyMongo
 import os
@@ -18,13 +18,12 @@ from flask import (
 # Flask Setup
 #################################################
 app = Flask(__name__)
-print(count1)
 #################################################
 # Database Setup
 ################################################
 
-# mongo_current = PyMongo(app, uri="mongodb://localhost:27017/current_dashboard")
-# mongo_seven_day = PyMongo(app, uri="mongodb://localhost:27017/seven_day_dashboard")
+mongo_current = PyMongo(app, uri="mongodb://localhost:27017/current_dashboard")
+mongo_seven_day = PyMongo(app, uri="mongodb://localhost:27017/seven_day_dashboard")
 
 # API call
 # current_data = {"data": weather_data.makecall()}
@@ -33,41 +32,24 @@ print(count1)
 current_data = {"data": current_data1}
 seven_day_data = {"data": seven_day_data1}
 
-# mongo_current.db.collection.update({}, current_data, upsert=True)
-# mongo_seven_day.db.collection.update({}, seven_day_data, upsert=True)
+mongo_current.db.collection.update({}, current_data, upsert=True)
+mongo_seven_day.db.collection.update({}, seven_day_data, upsert=True)
 
 # Routes
 @app.route("/")
 def home(): 
-    # current = mongo_current.db.collection.find_one()
-    # forecast = mongo_seven_day.db.collection.find_one()
-    # meep = False
-    # if count1 == 0:
-    #     meep = True
-    #     count1 += 1
-    #     return redirect("/current-data-json", meep)
-    # if count2 == 0:
-    #     meep = True
-    #     count2 += 1
-    #     return redirect("/seven-day-data-json", meep)
-
     return render_template('index.html')
 
 @app.route("/current-data-json")
-def current_json(meep):
+def current_json():
     current = mongo_current.db.collection.find_one()
-    if meep:
-        meep = False
-        return jsonify(current)
-    return redirect("/")
-
+    return jsonify(current["data"])
+    
 @app.route("/seven-day-data-json")
-def weekly_forecast(meepmeep):
+def weekly_forecast():
     forecast = mongo_seven_day.db.collection.find_one()
-    if meepmeep:
-        meepmeep = False
-        return jsonify(forecast)
-    return redirect("/")
+    return jsonify(forecast["data"])
+
 
 if __name__ == "__main__":
     app.run(debug=False)
