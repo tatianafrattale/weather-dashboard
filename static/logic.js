@@ -1,11 +1,22 @@
+
 d3.json("/current-data-json").then(function(response) {
-
+ // d3.json("current_weather_data.txt").then(function(response) {
     console.log(response);
-
+    // Create a map object.
+  var layers = { NORMAL: new L.LayerGroup()};
+  myMap = L.map("map", {
+   center: [37.09, -95.71],
+   zoom: 5,
+   layers: [
+       layers.NORMAL
+   ]
+   });
+    data = response;
+    //init();
     // const data = response;
-  });
 
-  data = []
+
+  //data = []
 
   function createMap(data1){
       myMap.eachLayer(function (layer) {
@@ -22,7 +33,7 @@ d3.json("/current-data-json").then(function(response) {
           if (city.sys.country === "US"){
   
       // Change for new script being in F
-              var temp = (city.main.temp - 273.15) * (9/5) + 32;
+              var temp = city.main.temp;
            L.marker(city.coord)
           .bindPopup(`<h3>${city.name}</h3> <h4>Temperature: ${temp.toLocaleString()} F</h4>
           <h4>Humidity: ${city.main.humidity.toLocaleString()} </h4> <h4>Wind Speed: ${city.wind.speed.toLocaleString()} </h4>
@@ -49,19 +60,19 @@ d3.json("/current-data-json").then(function(response) {
         // https://plotly.com/javascript/gauge-charts/
         //https://plotly.com/javascript/reference/indicator/
         // Change color of gauge bar depending on temperature
-        if ( (cityinfo[0].main.temp - 273.15) * (9/5) + 32 < 0){
+        if ( (cityinfo[0].main.temp ) < 0){
             color1 = "#A020F0";
         }
-        else if ( (cityinfo[0].main.temp - 273.15) * (9/5) + 32 < 32){
+        else if ( (cityinfo[0].main.temp) < 32){
           color1 = "#0000FF";
         }
-        else if ( (cityinfo[0].main.temp - 273.15) * (9/5) + 32 < 75){
+        else if ( (cityinfo[0].main.temp ) < 75){
           color1 = "#097969";
         }
-        else if ( (cityinfo[0].main.temp - 273.15) * (9/5) + 32 < 105){
+        else if ( (cityinfo[0].main.temp )< 105){
           color1 = "#FF1493";
         }
-        else if ( (cityinfo[0].main.temp - 273.15) * (9/5) + 32 < 150){
+        else if ( (cityinfo[0].main.temp ) < 150){
           color1 = "#FFA500";
         }
         
@@ -69,7 +80,7 @@ d3.json("/current-data-json").then(function(response) {
           {
               domain: { x: [-50, 130], y: [-50, 130] },
               
-              value: (cityinfo[0].main.temp - 273.15) * (9/5) + 32,
+              value: (cityinfo[0].main.temp),
               title: { text: "Current Temperature in " + chosen_city + " (F)" ,
                       font: {size: 27}},
               gauge: {axis: {visible: true, range: [-50,130]}, 
@@ -131,14 +142,7 @@ d3.json("/current-data-json").then(function(response) {
       })
     }
 
-    var layers = { NORMAL: new L.LayerGroup()};
-    myMap = L.map("map", {
-      center: [37.09, -95.71],
-      zoom: 5,
-      layers: [
-          layers.NORMAL
-      ]
-      });
+
 function optionChanged(city){
     fillInInfoCard(city);
         // Bargraph(city);
@@ -174,7 +178,7 @@ function init(){
         for (var i =0; i < data.length; i++) {
              var city = data[i];
             if (city.sys.country === "US"){
-             var temp = (city.main.temp - 273.15) * (9/5) + 32;
+             var temp = (city.main.temp);
              var newmark = L.marker(city.coord)
             .bindPopup(`<h3>${city.name}</h3> <h4>Temperature: ${temp.toLocaleString()} F</h4>
             <h4>Humidity: ${city.main.humidity.toLocaleString()} </h4> <h4>Wind Speed: ${city.wind.speed.toLocaleString()} </h4>
@@ -185,4 +189,5 @@ function init(){
          }
     sliderFill();
 }
-init()
+init();
+});
