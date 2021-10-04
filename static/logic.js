@@ -45,7 +45,8 @@ d3.json("/current-data-json").then(function(response) {
   
     function fillInInfoCard(chosen_city){
         let cityinfo = data.filter(c => c.name === chosen_city);
-  
+        console.log("city info");
+        console.log(cityinfo);
         tofill = d3.select("#sample-metadata");
         tofill.html("");
       // Fill in info panel
@@ -144,7 +145,7 @@ d3.json("/current-data-json").then(function(response) {
 
 
 function optionChanged(city){
-    fillInInfoCard(city);
+  fillInInfoCard(city);
         // Bargraph(city);
 }
 
@@ -191,3 +192,6 @@ function init(){
 }
 init();
 });
+function optionChanged1(city){
+  fillInInfoCard(city);
+}
