@@ -25,7 +25,7 @@ def make7daycall():
 #  API url template
 #api.openweathermap.org/data/2.5/weather?q=atlanta&appid=a6501ad09aae11365e9abba37620e112
     weather_json= []
-    url = "https://api.openweathermap.org/data/2.5/weather?q="
+    url = "https://api.openweathermap.org/data/2.5/forecast/daily?q="
     api_key = "&cnt=7&units=imperial&appid=a6501ad09aae11365e9abba37620e112"
 
 #Iterate through cities list for API Calls
@@ -34,7 +34,7 @@ def make7daycall():
         api_url = url +city+ api_key
         weather_data = requests.get(api_url).json()
     
-        if "name" in weather_data: 
+        if "name" not in weather_data: 
             weather_json.append(weather_data)
 
 
