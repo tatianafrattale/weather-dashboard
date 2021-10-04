@@ -1,6 +1,6 @@
 # Imports
 
-from counts import current_data1, seven_day_data1
+from api_calls import current_data1, seven_day_data1
 import pymongo
 from flask_pymongo import PyMongo
 import os
@@ -25,9 +25,6 @@ mongo_current = PyMongo(app, uri="mongodb://localhost:27017/current_dashboard")
 mongo_seven_day = PyMongo(app, uri="mongodb://localhost:27017/seven_day_dashboard")
 
 # API call
-# current_data = {"data": weather_data.makecall()}
-# seven_day_data = {"data": seven_day_forecast.make7daycall()}
-
 current_data = {"data": current_data1}
 seven_day_data = {"data": seven_day_data1}
 

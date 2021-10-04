@@ -126,47 +126,47 @@ function createMap(data1){
     })
   }
 
-  // function init(){
-  //   console.log("hello")
-  //   // console.log(d3.json("/current-data-json"))
-  //   console.log("bye")
+  function init(){
+    console.log("hello")
+    // console.log(d3.json("/current-data-json"))
+    console.log("bye")
     
-  //   var choice = d3.select("#selDataset");
+    var choice = d3.select("#selDataset");
    
-  //   // sort city names so they appear in drop down alphabetically
-  //   sorted = [];
-  //   for (var i=0; i < data.length; i++ ){
-  //       if (data[i].sys.country === "US"){
-  //       sorted.push(data[i].name)
-  //       }
-  //   }
-  //   sorted.sort();
-  //   for (var i=0; i < sorted.length; i++){
-  //       choice.append("option").text(sorted[i]);
+    // sort city names so they appear in drop down alphabetically
+    sorted = [];
+    for (var i=0; i < data.length; i++ ){
+        if (data[i].sys.country === "US"){
+        sorted.push(data[i].name)
+        }
+    }
+    sorted.sort();
+    for (var i=0; i < sorted.length; i++){
+        choice.append("option").text(sorted[i]);
 
-  // }
-  //   fillInInfoCard(sorted[0]);
-  //   // Call bar graph here too    
-  //   // Add a tile layer.
-  //       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  //         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  //       }).addTo(myMap);
+  }
+    fillInInfoCard(sorted[0]);
+    // Call bar graph here too    
+    // Add a tile layer.
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(myMap);
     
-  //       // Add markers
-  //       for (var i =0; i < data.length; i++) {
-  //            var city = data[i];
-  //           if (city.sys.country === "US"){
-  //            var temp = (city.main.temp - 273.15) * (9/5) + 32;
-  //            var newmark = L.marker(city.coord)
-  //           .bindPopup(`<h3>${city.name}</h3> <h4>Temperature: ${temp.toLocaleString()} F</h4>
-  //           <h4>Humidity: ${city.main.humidity.toLocaleString()} </h4> <h4>Wind Speed: ${city.wind.speed.toLocaleString()} </h4>
-  //           <h4>Sky: ${city.weather[0].description} </h4> `);
+        // Add markers
+        for (var i =0; i < data.length; i++) {
+             var city = data[i];
+            if (city.sys.country === "US"){
+             var temp = (city.main.temp - 273.15) * (9/5) + 32;
+             var newmark = L.marker(city.coord)
+            .bindPopup(`<h3>${city.name}</h3> <h4>Temperature: ${temp.toLocaleString()} F</h4>
+            <h4>Humidity: ${city.main.humidity.toLocaleString()} </h4> <h4>Wind Speed: ${city.wind.speed.toLocaleString()} </h4>
+            <h4>Sky: ${city.weather[0].description} </h4> `);
 
-  //           newmark.addTo(myMap);
-  //         }
-  //        }
-  //   sliderFill();
-  // }
+            newmark.addTo(myMap);
+          }
+         }
+    sliderFill();
+  }
 
   function optionChanged(city){
       fillInInfoCard(city);
