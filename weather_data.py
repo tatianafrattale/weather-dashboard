@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import requests    
+import time
 
 def makecall():
         # List of cities for API calls 
@@ -34,6 +35,7 @@ def makecall():
     
         api_url = url +city+ api_key
         weather_data = requests.get(api_url).json()
+        time.sleep(1)
     
         if "name" in weather_data: 
             weather_json.append(weather_data)
@@ -42,5 +44,3 @@ def makecall():
 # Check weather data
    # print(weather_json)
     return weather_json
-
-makecall()

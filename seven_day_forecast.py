@@ -33,6 +33,7 @@ def make7daycall():
     
         api_url = url +city+ api_key
         weather_data = requests.get(api_url).json()
+        time.sleep(1)
     
         if "name" not in weather_data: 
             weather_json.append(weather_data)
