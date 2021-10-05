@@ -1,8 +1,9 @@
+#import Dependencies
 import pandas as pd
 import numpy as np
 import requests    
 
-def make7daycall():
+def makecall():
         # List of cities for API calls 
     cities_list = ["Montgomery", "Juneau", "Phoenix", "Odessa", "Sacramento", "Denver", "Hartford", "Dover", "Tallahassee", "Atlanta", "Honolulu", "Boise",
           "Springfield", "Indianapolis", "Allen", "Topeka", "Frankfort", "Chesapeake", "Augusta", "Annapolis", "Boston", "Lansing", "Passaic",
@@ -25,8 +26,8 @@ def make7daycall():
 #  API url template
 #api.openweathermap.org/data/2.5/weather?q=atlanta&appid=a6501ad09aae11365e9abba37620e112
     weather_json= []
-    url = "https://api.openweathermap.org/data/2.5/forecast/daily?q="
-    api_key = "&cnt=7&units=imperial&appid=a6501ad09aae11365e9abba37620e112"
+    url = "https://api.openweathermap.org/data/2.5/weather?q="
+    api_key = "&units=imperial&appid=a6501ad09aae11365e9abba37620e112"
 
 #Iterate through cities list for API Calls
     for city in cities_list: 
@@ -34,10 +35,11 @@ def make7daycall():
         api_url = url +city+ api_key
         weather_data = requests.get(api_url).json()
     
-        if "name" not in weather_data: 
+        if "name" in weather_data: 
             weather_json.append(weather_data)
 
 
 # Check weather data
-    #print(weather_json)
+    print(weather_json)
     return weather_json
+
