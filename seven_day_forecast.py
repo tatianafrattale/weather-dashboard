@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import requests    
+import time 
 
 def make7daycall():
         # List of cities for API calls 
