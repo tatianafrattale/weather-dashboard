@@ -1,4 +1,60 @@
+function fillInInfoCard(chosen_city){
+  let cityinfo = data.filter(c => c.name === chosen_city);
+  console.log("city info");
+  console.log(cityinfo);
+  tofill = d3.select("#sample-metadata");
+  tofill.html("");
+// Fill in info panel
+  let fields = ["temp", "temp_max", "temp_min", "humidity", "pressure"];
+  let fields1 = ['Temperature', 'Max Temp', 'Min Temp', 'Humidity (%)', 'Pressure (hPa)'];
+  tofill.append("h5").text("City: " + chosen_city);
+  for (var i = 0; i < fields.length; i++){
+      tofill.append("h5").text(String(fields1[i]) + ": " + String(cityinfo[0].main[fields[i]]));
+  }
 
+  // Update Gauge at same time
+  // https://plotly.com/javascript/gauge-charts/
+  //https://plotly.com/javascript/reference/indicator/
+  // Change color of gauge bar depending on temperature
+  if ( (cityinfo[0].main.temp ) < 0){
+      color1 = "#A020F0";
+  }
+  else if ( (cityinfo[0].main.temp) < 32){
+    color1 = "#0000FF";
+  }
+  else if ( (cityinfo[0].main.temp ) < 75){
+    color1 = "#097969";
+  }
+  else if ( (cityinfo[0].main.temp )< 105){
+    color1 = "#FF1493";
+  }
+  else if ( (cityinfo[0].main.temp ) < 150){
+    color1 = "#FFA500";
+  }
+  
+  var data2 = 
+    {
+        domain: { x: [-50, 130], y: [-50, 130] },
+        
+        value: (cityinfo[0].main.temp),
+        title: { text: "Current Temperature in " + chosen_city + " (F)" ,
+                font: {size: 27}},
+        gauge: {axis: {visible: true, range: [-50,130]}, 
+            bar: {color:color1}},
+        number: {font : {color: color1}},
+        type: "indicator",
+        mode: "gauge+number"
+    };
+
+var layout = { width: 600, height: 400, margin:  { t: 0, b: 0 } };
+Plotly.newPlot('gauge', [data2], layout);
+
+
+}
+function optionChanged1(city){
+  console.log("optionChanged1");
+  fillInInfoCard(city);
+}
 d3.json("/current-data-json").then(function(response) {
  // d3.json("current_weather_data.txt").then(function(response) {
     console.log(response);
@@ -43,59 +99,59 @@ d3.json("/current-data-json").then(function(response) {
        }
   }
   
-    function fillInInfoCard(chosen_city){
-        let cityinfo = data.filter(c => c.name === chosen_city);
-        console.log("city info");
-        console.log(cityinfo);
-        tofill = d3.select("#sample-metadata");
-        tofill.html("");
-      // Fill in info panel
-        let fields = ["temp", "temp_max", "temp_min", "humidity", "pressure"];
-        let fields1 = ['Temperature', 'Max Temp', 'Min Temp', 'Humidity (%)', 'Pressure (hPa)'];
-        tofill.append("h5").text("City: " + chosen_city);
-        for (var i = 0; i < fields.length; i++){
-            tofill.append("h5").text(String(fields1[i]) + ": " + String(cityinfo[0].main[fields[i]]));
-        }
+  //   function fillInInfoCard(chosen_city){
+  //       let cityinfo = data.filter(c => c.name === chosen_city);
+  //       console.log("city info");
+  //       console.log(cityinfo);
+  //       tofill = d3.select("#sample-metadata");
+  //       tofill.html("");
+  //     // Fill in info panel
+  //       let fields = ["temp", "temp_max", "temp_min", "humidity", "pressure"];
+  //       let fields1 = ['Temperature', 'Max Temp', 'Min Temp', 'Humidity (%)', 'Pressure (hPa)'];
+  //       tofill.append("h5").text("City: " + chosen_city);
+  //       for (var i = 0; i < fields.length; i++){
+  //           tofill.append("h5").text(String(fields1[i]) + ": " + String(cityinfo[0].main[fields[i]]));
+  //       }
   
-        // Update Gauge at same time
-        // https://plotly.com/javascript/gauge-charts/
-        //https://plotly.com/javascript/reference/indicator/
-        // Change color of gauge bar depending on temperature
-        if ( (cityinfo[0].main.temp ) < 0){
-            color1 = "#A020F0";
-        }
-        else if ( (cityinfo[0].main.temp) < 32){
-          color1 = "#0000FF";
-        }
-        else if ( (cityinfo[0].main.temp ) < 75){
-          color1 = "#097969";
-        }
-        else if ( (cityinfo[0].main.temp )< 105){
-          color1 = "#FF1493";
-        }
-        else if ( (cityinfo[0].main.temp ) < 150){
-          color1 = "#FFA500";
-        }
+  //       // Update Gauge at same time
+  //       // https://plotly.com/javascript/gauge-charts/
+  //       //https://plotly.com/javascript/reference/indicator/
+  //       // Change color of gauge bar depending on temperature
+  //       if ( (cityinfo[0].main.temp ) < 0){
+  //           color1 = "#A020F0";
+  //       }
+  //       else if ( (cityinfo[0].main.temp) < 32){
+  //         color1 = "#0000FF";
+  //       }
+  //       else if ( (cityinfo[0].main.temp ) < 75){
+  //         color1 = "#097969";
+  //       }
+  //       else if ( (cityinfo[0].main.temp )< 105){
+  //         color1 = "#FF1493";
+  //       }
+  //       else if ( (cityinfo[0].main.temp ) < 150){
+  //         color1 = "#FFA500";
+  //       }
         
-        var data2 = 
-          {
-              domain: { x: [-50, 130], y: [-50, 130] },
+  //       var data2 = 
+  //         {
+  //             domain: { x: [-50, 130], y: [-50, 130] },
               
-              value: (cityinfo[0].main.temp),
-              title: { text: "Current Temperature in " + chosen_city + " (F)" ,
-                      font: {size: 27}},
-              gauge: {axis: {visible: true, range: [-50,130]}, 
-                  bar: {color:color1}},
-              number: {font : {color: color1}},
-              type: "indicator",
-              mode: "gauge+number"
-          };
+  //             value: (cityinfo[0].main.temp),
+  //             title: { text: "Current Temperature in " + chosen_city + " (F)" ,
+  //                     font: {size: 27}},
+  //             gauge: {axis: {visible: true, range: [-50,130]}, 
+  //                 bar: {color:color1}},
+  //             number: {font : {color: color1}},
+  //             type: "indicator",
+  //             mode: "gauge+number"
+  //         };
       
-      var layout = { width: 600, height: 400, margin:  { t: 0, b: 0 } };
-      Plotly.newPlot('gauge', [data2], layout);
+  //     var layout = { width: 600, height: 400, margin:  { t: 0, b: 0 } };
+  //     Plotly.newPlot('gauge', [data2], layout);
   
       
-  }
+  // }
   
     // https://digital-geography.com/filter-leaflet-maps-slider/
     function sliderFill(){
@@ -145,6 +201,7 @@ d3.json("/current-data-json").then(function(response) {
 
 
 function optionChanged(city){
+  console.log("in original option changed");
   fillInInfoCard(city);
         // Bargraph(city);
 }
@@ -192,6 +249,3 @@ function init(){
 }
 init();
 });
-function optionChanged1(city){
-  fillInInfoCard(city);
-}
