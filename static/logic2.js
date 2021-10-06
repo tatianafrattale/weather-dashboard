@@ -170,7 +170,7 @@ function fillInInfoCard(chosen_city){
     if ( (cityinfo[0].main.temp ) < 0){
         color1 = "#A020F0";
     }
-    else if ( (cityinfo[0].main.temp) < 32){
+    else if ( (cityinfo[0].main.temp) < 46){
       color1 = "#0000FF";
     }
     else if ( (cityinfo[0].main.temp ) < 75){
@@ -223,7 +223,7 @@ function barGraph(chosen_city){
     if ( (selected_city[0].list[i].temp.day) < 0){
         bar_colors.push("#A020F0");
     }
-    else if ( (selected_city[0].list[i].temp.day) < 32){
+    else if ( (selected_city[0].list[i].temp.day) < 46){
         bar_colors.push("#0000FF");
     }
     else if ( (selected_city[0].list[i].temp.day) < 75){
