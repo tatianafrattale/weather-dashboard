@@ -207,35 +207,70 @@ function fillInInfoCard(chosen_city){
 
 function barGraph(chosen_city){
     let selected_city = seven_day_data.filter(c => c.city.name === chosen_city);
-      // Bar graph test!
+    // Create empty arrays to hold temperature and date
     var seven_day_temp = []
     var seven_day_date = []
+    var bar_colors = []
 
 
     console.log(selected_city);
 
-  // Create dictionary
-
-
-  // Basically, loop through 7_day_weather, and take the min, max, and avg. temps
-  // Color code them, and add a legend as well.
+  // Basically, loop through 7_day_weather, and take the day temperature
   for (var i = 0; i <= 6; i++){
     seven_day_temp.push(selected_city[0].list[i].temp.day);
-    seven_day_date.push(new Date(selected_city[0].list[i].dt));
-    
+    seven_day_date.push(new Date(selected_city[0].list[i].dt * 1000));
+
+    if ( (selected_city[0].list[i].temp.day) < 0){
+        bar_colors.push("#A020F0");
+    }
+    else if ( (selected_city[0].list[i].temp.day) < 32){
+        bar_colors.push("#0000FF");
+    }
+    else if ( (selected_city[0].list[i].temp.day) < 75){
+        bar_colors.push("#097969");
+    }
+    else if ( (selected_city[0].list[i].temp.day)< 105){
+        bar_colors.push("#FF1493");
+    }
+    else if ( (selected_city[0].list[i].temp.day) < 150){
+        bar_colors.push("#FFA500");
+    }
+
+    // console.log(new Date(selected_city[0].list[i].dt * 1000))
     // console.log(selected_city[0].list);
     // console.log(selected_city);
   }
+
+  // console.log(bar_colors)
 
   var data3 = [
   {
       x: seven_day_date,
       y: seven_day_temp,
-      type: 'bar'
+      type: 'bar',
+      marker: {
+        color: bar_colors
+      }
   }
   ];
 
-Plotly.newPlot('bar', data3)
+  let layout2 = {
+    title: {
+        text: "Weekly Temperature Forecast for " + chosen_city + " (F)"
+    },  
+    xaxis: {
+          title: {
+              text: "Date"
+          }
+      },
+      yaxis: {
+          title: {
+            text: "Temperature (F)"
+          }
+      }
+  }
+
+Plotly.newPlot('bar', data3, layout2)
 }
 
 
