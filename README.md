@@ -9,7 +9,7 @@ Data Source:
 
 https://openweathermap.org/api
 
-We plan on using a Flask application to make calls to the weather APIs (both Current Weather and 16 day forecast). This same Flask app will dump the resulting JSON responses into a MongoDB database. We will have a Javascript file that reads the JSON in from the Flask .py file and creates the visualizations using Plotly, ECharts, and Carto libraries. We will have an index.html file that deploys to show our dashboard.
+We plan on using a Flask application to make calls to the weather APIs (both Current Weather and seven day forecast). This same Flask app will dump the resulting JSON responses into a MongoDB database. We will have a Javascript file that reads the JSON in from the Flask app.py file and creates the visualizations using Plotly, D3, Leaflet, and noUiSlider libraries. We will have an index.html file that deploys to show our dashboard.
 
 What filter controls what?
 Slider: Map
@@ -18,10 +18,11 @@ Dropdown: Metadata box, bar graph, and gauge
 Visualizations:
 
 Map of ~200 cities with markers with pop-ups including detailed weather info (current weather).
-A line/bar graph linked to a drop-down of cities, that shows that city’s 2 week temperature forecast. 
-A “metadata box” that includes selected city’s full info, including wind speed, cloud coverage, and humidity.
-Gauge, linked to same dropdown that shows chosen city’s current temperature. 
-“Slider feature” that allows us to filter map markers by humidity. 
+A line/bar graph linked to a drop-down of cities, that shows that city’s seven day temperature forecast. 
+A “metadata box” that includes selected city’s full info, including, max and min temperature, humidity, and pressure.
+Map city markers that include selected city's information, including, temperature, humidity, wind speed, and sky conditions.
+A Gauge linked to same city dropdown that shows chosen city’s current temperature. 
+A “Slider feature” that allows us to filter the map markers by humidity. 
 
 Libraries Used:
-D3, Leaflet, Plotly, Echarts, noUiSlider
+D3, Leaflet, Plotly, noUiSlider
