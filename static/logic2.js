@@ -27,7 +27,6 @@ function newFunction(values){
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(myMap);
-        // console.log(data1);
     
         for (var i =0; i < data1.length; i++) {
              var city = data1[i];
@@ -79,7 +78,6 @@ function newFunction(values){
       
           wanted = [];
           for (var i =0; i < data.length; i++){
-          //    console.log(data[i].main.humidity);
               if (data[i].main.humidity >= rangeMin) {
                 if (data[i].main.humidity <= rangeMax) {
                     wanted.push(data[i]);
@@ -90,17 +88,7 @@ function newFunction(values){
           })
     }
 
-    function optionChanged(city){
-        console.log("in original option changed");
-        fillInInfoCard(city);
-              // Bargraph(city);
-    }
-
     function init(){
-        //console.log("hello")
-        // console.log(d3.json("/current-data-json"))
-        //console.log("bye")
-        
         var choice = d3.select("#selDataset");
        
         // sort city names so they appear in drop down alphabetically
@@ -136,8 +124,6 @@ function newFunction(values){
               }
              }
         sliderFill();
-        // console.log(sorted[0])
-        // console.log(seven_day_data[0])
         barGraph(sorted[0]);
     }
     init();
@@ -201,10 +187,6 @@ function fillInInfoCard(chosen_city){
   Plotly.newPlot('gauge', [data2], layout);
   
   }
-
-
-
-
 function barGraph(chosen_city){
     let selected_city = seven_day_data.filter(c => c.city.name === chosen_city);
     // Create empty arrays to hold temperature and date
@@ -235,14 +217,7 @@ function barGraph(chosen_city){
     else if ( (selected_city[0].list[i].temp.day) < 150){
         bar_colors.push("#FFA500");
     }
-
-    // console.log(new Date(selected_city[0].list[i].dt * 1000))
-    // console.log(selected_city[0].list);
-    // console.log(selected_city);
   }
-
-  // console.log(bar_colors)
-
   var data3 = [
   {
       x: seven_day_date,
